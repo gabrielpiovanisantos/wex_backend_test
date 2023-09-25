@@ -2,6 +2,7 @@ package com.example.wex_backend_test.controller;
 
 import com.example.wex_backend_test.model.Transaction;
 import com.example.wex_backend_test.service.TransactionService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,7 @@ public class TransactionController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public Transaction save(@RequestBody TransactionDTO transaction) {
+    public Transaction save(@RequestBody @Valid TransactionDTO transaction) {
         return service.save(transaction);
     }
 

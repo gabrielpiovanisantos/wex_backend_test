@@ -5,12 +5,14 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
 @Setter
+@Validated
 public class TransactionDTO {
 
     @Size(max = 50)
