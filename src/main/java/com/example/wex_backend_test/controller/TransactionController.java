@@ -1,14 +1,11 @@
 package com.example.wex_backend_test.controller;
 
 import com.example.wex_backend_test.model.Transaction;
+import com.example.wex_backend_test.service.ConvertedTransaction;
 import com.example.wex_backend_test.service.TransactionService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -25,5 +22,9 @@ public class TransactionController {
         return service.save(transaction);
     }
 
+    @GetMapping("")
+    public ConvertedTransaction getByCurrency(@RequestParam String id, @RequestParam String currency) {
+        return service.getByCurrency(id, currency);
+    }
 
 }
