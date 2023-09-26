@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @Validated
 public class TransactionDTO {
 
+    private String transactionId;
     @Size(max = 50)
     private String description;
 

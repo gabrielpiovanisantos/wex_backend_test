@@ -21,7 +21,6 @@ public class ReportingRateService {
 
     private static final String URISTRING = "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/rates_of_exchange";
     private HttpClientApp httpClientApp;
-
     private ObjectMapper objectMapper;
 
     @SneakyThrows
@@ -32,7 +31,8 @@ public class ReportingRateService {
         Body body = objectMapper.readValue(response.body(), Body.class);
         ReportingRate reportingRate = body.getData().stream().
                 filter(it -> Objects.equals(it.getCurrency(), currency)).
-                filter(it -> !it.getEffectiveDate().isAfter(transactionDate)).
+                filter(it -> !it.getEffectiveDate().isBefore(transactionDate)).
+                filter(it -> it.getEffectiveDate().isAfter(LocalDate.now().minusMonths(6))).
                 findFirst().orElse(null);
         return reportingRate != null ? reportingRate.getExchangeRate() : null;
     }

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Service
 @AllArgsConstructor
@@ -16,8 +17,8 @@ public class TransactionService {
     private TransactionMapper mapper;
     private ReportingRateService reportingRateService;
 
-    public Transaction save(TransactionDTO transaction) {
-        return repository.save(mapper.dtoToEntity(transaction));
+    public TransactionDTO save(TransactionDTO transaction) {
+        return mapper.entityToDTO(repository.save(mapper.dtoToEntity(transaction)));
     }
 
     public ConvertedTransaction getByCurrency(String id, String currency) {
@@ -38,6 +39,6 @@ public class TransactionService {
     }
 
     private static BigDecimal getAmountMultiplied(BigDecimal exchangeRate, BigDecimal purchaseAmount) {
-        return purchaseAmount.multiply(exchangeRate);
+        return purchaseAmount.multiply(exchangeRate).setScale(2, RoundingMode.CEILING);
     }
 }

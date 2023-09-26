@@ -13,4 +13,13 @@ public class TransactionMapper {
         transaction.setPurchaseAmount(transactionDTO.getPurchaseAmount());
         return transaction;
     }
+
+    public TransactionDTO entityToDTO(Transaction transaction) {
+        TransactionDTO transactionDTO = new TransactionDTO();
+        transactionDTO.setTransactionId(transaction.getId());
+        transactionDTO.setDescription(transaction.getDescription());
+        transactionDTO.setTransactionDate(transaction.getTransactionDate());
+        transactionDTO.setPurchaseAmount(transaction.getPurchaseAmount());
+        return transactionDTO;
+    }
 }

@@ -17,9 +17,7 @@ public class Transaction {
 
     @Id
     private String id;
-
     private String description;
-
     private LocalDate transactionDate;
     private BigDecimal purchaseAmount;
 
