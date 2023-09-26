@@ -4,7 +4,7 @@ import com.example.wex_backend_test.util.Body;
 import com.example.wex_backend_test.util.HttpClientApp;
 import com.example.wex_backend_test.util.ReportingRate;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +16,13 @@ import java.util.Objects;
 import static java.net.URI.create;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ReportingRateService {
 
     private static final String URISTRING = "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/rates_of_exchange";
-    private HttpClientApp httpClientApp;
-    private ObjectMapper objectMapper;
+    public static final String NO_EXCHANGE_RATE_FOUND_WITHIN_SIX_MONTHS_FOR_THIS_CURRENCY = "No exchange rate found within six months for this currency";
+    private final HttpClientApp httpClientApp;
+    private final ObjectMapper objectMapper;
 
     @SneakyThrows
     public BigDecimal getExchangeRate(LocalDate transactionDate, String currency) {
@@ -31,9 +32,10 @@ public class ReportingRateService {
         Body body = objectMapper.readValue(response.body(), Body.class);
         ReportingRate reportingRate = body.getData().stream().
                 filter(it -> Objects.equals(it.getCurrency(), currency)).
-                filter(it -> !it.getEffectiveDate().isBefore(transactionDate)).
-                filter(it -> it.getEffectiveDate().isAfter(LocalDate.now().minusMonths(6))).
+                filter(it -> it.getEffectiveDate().isEqual(transactionDate) || (!it.getEffectiveDate().isAfter(transactionDate) &&
+                        it.getEffectiveDate().isAfter(LocalDate.now().minusMonths(6)))).
                 findFirst().orElse(null);
-        return reportingRate != null ? reportingRate.getExchangeRate() : null;
+        if (reportingRate != null) return reportingRate.getExchangeRate();
+        throw new NoExchangeRateException(NO_EXCHANGE_RATE_FOUND_WITHIN_SIX_MONTHS_FOR_THIS_CURRENCY);
     }
 }

@@ -3,19 +3,19 @@ package com.example.wex_backend_test.service;
 import com.example.wex_backend_test.controller.TransactionDTO;
 import com.example.wex_backend_test.model.Transaction;
 import com.example.wex_backend_test.repository.TransactionRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TransactionService {
 
-    private TransactionRepository repository;
-    private TransactionMapper mapper;
-    private ReportingRateService reportingRateService;
+    private final TransactionRepository repository;
+    private final TransactionMapper mapper;
+    private final ReportingRateService reportingRateService;
 
     public TransactionDTO save(TransactionDTO transaction) {
         return mapper.entityToDTO(repository.save(mapper.dtoToEntity(transaction)));

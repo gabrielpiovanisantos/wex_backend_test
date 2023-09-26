@@ -3,17 +3,17 @@ package com.example.wex_backend_test.controller;
 import com.example.wex_backend_test.service.ConvertedTransaction;
 import com.example.wex_backend_test.service.TransactionService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("transactions")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TransactionController {
 
-    private TransactionService service;
+    private final TransactionService service;
 
     @PostMapping
     @ResponseStatus(CREATED)
