@@ -22,12 +22,22 @@ public class TransactionService {
 
     public ConvertedTransaction getByCurrency(String id, String currency) {
         Transaction transaction = repository.findById(id).orElseThrow();
-        BigDecimal exchangeRate = reportingRateService.getExchangeRate(currency);
-
+        BigDecimal exchangeRate = reportingRateService.getExchangeRate(transaction.getTransactionDate(), currency);
         return convertTransaction(transaction, exchangeRate);
     }
 
     private ConvertedTransaction convertTransaction(Transaction transaction, BigDecimal exchangeRate) {
-        return null;
+        ConvertedTransaction convertedTransaction = new ConvertedTransaction();
+        convertedTransaction.setId(transaction.getId());
+        convertedTransaction.setDescription(transaction.getDescription());
+        convertedTransaction.setTransactionDate(transaction.getTransactionDate());
+        convertedTransaction.setExchangeRate(exchangeRate);
+        convertedTransaction.setUsDollarPurchase(transaction.getPurchaseAmount());
+        convertedTransaction.setConvertedAmount(getAmountMultiplied(exchangeRate, transaction.getPurchaseAmount()));
+        return convertedTransaction;
+    }
+
+    private static BigDecimal getAmountMultiplied(BigDecimal exchangeRate, BigDecimal purchaseAmount) {
+        return purchaseAmount.multiply(exchangeRate);
     }
 }
