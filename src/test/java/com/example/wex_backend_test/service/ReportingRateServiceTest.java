@@ -87,7 +87,7 @@ class ReportingRateServiceTest {
         List<ReportingRate> data = new ArrayList<>();
         currency = "Afghani";
         now = LocalDate.now();
-        ReportingRate e = new ReportingRate();
+        var e = new ReportingRate();
         e.setCurrency(currency);
         e.setEffectiveDate(now.minusMonths(monthsToSubtract));
         ten = BigDecimal.TEN;
