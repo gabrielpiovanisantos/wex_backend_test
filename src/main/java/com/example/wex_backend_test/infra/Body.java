@@ -1,4 +1,4 @@
-package com.example.wex_backend_test.util;
+package com.example.wex_backend_test.infra;
 
 import lombok.Data;
 

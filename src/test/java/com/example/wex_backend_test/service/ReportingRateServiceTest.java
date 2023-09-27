@@ -1,8 +1,9 @@
 package com.example.wex_backend_test.service;
 
-import com.example.wex_backend_test.util.Body;
-import com.example.wex_backend_test.util.HttpClientApp;
-import com.example.wex_backend_test.util.ReportingRate;
+import com.example.wex_backend_test.infra.Body;
+import com.example.wex_backend_test.infra.HttpClientApp;
+import com.example.wex_backend_test.infra.ReportingRate;
+import com.example.wex_backend_test.util.exception.NoExchangeRateException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;

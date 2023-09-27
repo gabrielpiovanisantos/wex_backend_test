@@ -1,11 +1,8 @@
 package com.example.wex_backend_test;
 
-import com.example.wex_backend_test.util.Body;
-import com.example.wex_backend_test.util.HttpClientApp;
-import com.example.wex_backend_test.util.ReportingRate;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.example.wex_backend_test.infra.Body;
+import com.example.wex_backend_test.infra.HttpClientApp;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -15,8 +12,6 @@ import org.springframework.http.HttpStatus;
 
 import java.net.URI;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
