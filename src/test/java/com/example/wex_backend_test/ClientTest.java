@@ -4,6 +4,8 @@ import com.example.wex_backend_test.infra.Body;
 import com.example.wex_backend_test.infra.HttpClientApp;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ class ClientTest {
     @Autowired
     HttpClientApp httpClientApp;
 
+
+
     @Test
     @SneakyThrows
     void testClient() {
@@ -29,6 +33,8 @@ class ClientTest {
         System.out.println(response.body());
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         Body body = objectMapper.readValue(response.body(), Body.class);
         assertThat(body.getData().size()).isNotZero();
         assertThat(body.getData().get(0).getCountry()).isEqualTo("Afghanistan");

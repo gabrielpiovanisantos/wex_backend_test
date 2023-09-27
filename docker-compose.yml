@@ -1,0 +1,16 @@
+version: '3.1'
+services:
+  spring:
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:3.6
+    restart: always
+    volumes:
+      - /home/data/wex_backend:/data/db
+    ports:
+      - "27018:27017"

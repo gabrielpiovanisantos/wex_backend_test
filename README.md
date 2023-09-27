@@ -1,1 +1,1 @@
-wex test for backend role
+WEX backend role test application
