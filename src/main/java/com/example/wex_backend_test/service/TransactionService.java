@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -40,5 +41,9 @@ public class TransactionService {
 
     private static BigDecimal getAmountMultiplied(BigDecimal exchangeRate, BigDecimal purchaseAmount) {
         return purchaseAmount.multiply(exchangeRate).setScale(2, RoundingMode.CEILING);
+    }
+
+    public List<TransactionDTO> findAll() {
+        return repository.findAll().stream().map(mapper::entityToDTO).toList();
     }
 }

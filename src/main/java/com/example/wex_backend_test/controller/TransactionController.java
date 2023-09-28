@@ -6,6 +6,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
@@ -21,9 +23,15 @@ public class TransactionController {
         return service.save(transaction);
     }
 
-    @GetMapping()
-    public ConvertedTransaction getByCurrency(@RequestParam String id, @RequestParam String currency) {
+    @GetMapping("/{id}/{currency}")
+    public ConvertedTransaction getByCurrency(@PathVariable String id, @PathVariable String currency) {
         return service.getByCurrency(id, currency);
     }
+
+    @GetMapping
+    public List<TransactionDTO> findAll() {
+        return service.findAll();
+    }
+
 
 }
