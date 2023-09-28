@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "7eadda0c-c88f-4e69-af86-400f9fcc894d",
+		"name": "WEX",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3287164"
+	},
+	"item": [
+		{
+			"name": "post transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\" : \"test transaction\",\n    \"transactionDate\" : \"2023-09-01\",\n    \"purchaseAmount\" : \"1.25\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/transactions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get by currency",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/transactions/6515d55b84b2456b1cdc1f53/Afghani",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions",
+						"6515d55b84b2456b1cdc1f53",
+						"Afghani"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/transactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/transactions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
