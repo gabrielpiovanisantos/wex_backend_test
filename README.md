@@ -14,7 +14,7 @@ WEX backend role test application
     example of body:
     {
     "description" : "test transaction",
-    "transactionDate" : "2023-01-23",
+    "transactionDate" : "2023-09-23",
     "purchaseAmount" : "1.25"
     }
 ```
